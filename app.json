@@ -1,31 +1,4 @@
 {
-  "expo": {
-    "name": "Quick Class",
-    "slug": "quick-class",
-    "privacy": "public",
-    "sdkVersion": "37.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "1.5.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "package": "com.veloxSZ.quickClass",
-      "versionCode": 1
-    },
-    "description": "Argon React Native, based on Argon Design System. Coded by Creative Tim"
-  }
+  "name": "QuickClass",
+  "displayName": "QuickClass"
 }
