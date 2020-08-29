@@ -1,12 +1,14 @@
-import React from 'react';
-import Text from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {Text, View, Button} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 
-function Student() {
+export default function Student() {
+  const navigation = useNavigation();
+
   return (
-    <div>
-      <Text>Login OK.</Text>
-    </div>
+    <View>
+      <Button title="voltar" onPress={() => navigation.navigate('Login')} />
+    </View>
   );
 }
-
-export default Student;
