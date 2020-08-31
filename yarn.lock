@@ -6496,6 +6496,11 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.6.0, react-is@^16.7.0, react-
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-native-exit-app@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-exit-app/-/react-native-exit-app-1.1.0.tgz#5ec082152974240e2d6a93f1608efb49a4385f21"
+  integrity sha512-Spne19zfMfJvnUTX909EHUqWMk69rATtLJq9XMBGpNSHhx0M7v5yetx2Z87egBhLOqQm+CWfD/oxWzDG8rbIQA==
+
 react-native-flipper@^0.34.0:
   version "0.34.0"
   resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.34.0.tgz#7df1f38ba5d97a9321125fe0fccbe47d99e6fa1d"
@@ -6523,10 +6528,10 @@ react-native-reanimated@^1.13.0:
   dependencies:
     fbjs "^1.0.0"
 
-react-native-safe-area-context@^3.1.6:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.1.6.tgz#4be329c71f33cac8ac56ddb2fe7a42ac509397ea"
-  integrity sha512-sAlVejR1cE3WhlYcMhHPB9E32bDyOUxs4Ew2kc4ZReztzlHh1wK1wmiJpvBWXsdFer2bbfQwfq+ZWkHJYQKZvA==
+react-native-safe-area-context@^3.1.7:
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.1.7.tgz#fc9e636dfb168f992a2172d363509ce0611a8403"
+  integrity sha512-qSyg/pVMwVPgAy8yCvw349Q+uEUhtRBV33eVXHHkfoou1vCChJxI7SmNR47/6M3BLdjWcyc4lcd018Kx+jhQCw==
 
 react-native-screens@^2.10.1:
   version "2.10.1"
