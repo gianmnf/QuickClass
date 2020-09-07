@@ -59,6 +59,7 @@ export default function Login() {
             email: userInfo.user.email,
             fotoUrl: userInfo.user.photo,
             tipo: 'Aluno',
+            turma: 'SIN8N-S',
           })
           .then((response) => {
             storageSave(JSON.stringify(response.id));

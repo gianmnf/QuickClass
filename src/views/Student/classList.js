@@ -9,14 +9,14 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from './styles';
 
 export default function ClassList() {
-  const usuarios = firestore().collection('usuarios');
-  const [aulas, setAulas] = useState([]);
+  const db = firestore();
+  const [aulas, setAulas] = useState();
   useEffect(() => {
     async function getAulas() {
-      const id = await (await AsyncStorage.getItem('@user')).slice(1, -1);
-      usuarios
-        .doc(id)
-        .collection('Aulas')
+      const t = await AsyncStorage.getItem('@turma');
+      db.collection('turmas')
+        .doc(t)
+        .collection('disciplinas')
         .onSnapshot((querySnapshot) => {
           const classes = [];
 
@@ -30,7 +30,6 @@ export default function ClassList() {
           setAulas(classes);
         });
     }
-
     getAulas();
   }, []);
 
@@ -50,7 +49,6 @@ export default function ClassList() {
               marginTop: 10,
             }}
           >
-            <Text>Disciplina: {item.disciplina}</Text>
             <Text>Professor: {item.professor}</Text>
           </View>
         )}

@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import { Text, View, Image, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +13,7 @@ export default function Student() {
   const [nome, setNome] = useState();
   const [foto, setFoto] = useState();
   const [showAlert, setShowAlert] = useState(false);
+  const [turma, setTurma] = useState();
 
   useEffect(() => {
     function setFirstName(u) {
@@ -27,14 +27,21 @@ export default function Student() {
       setFoto(photo);
     }
 
+    async function setClass(t) {
+      await AsyncStorage.setItem('@turma', t);
+    }
+
     async function getUser() {
       const id = await (await AsyncStorage.getItem('@user')).slice(1, -1);
       usuarios
         .doc(id)
         .get()
         .then((x) => {
-          setFirstName(x._data.nome);
-          setPhoto(x._data.fotoUrl);
+          setFirstName(x.data().nome);
+          setPhoto(x.data().fotoUrl);
+          if (x.data().tipo === 'Aluno') {
+            setClass(x.data().turma);
+          }
         })
         .catch((error) => {
           console.log(error);
