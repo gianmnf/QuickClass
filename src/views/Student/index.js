@@ -1,18 +1,19 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, Button, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Text, View, Image, Button } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import RNExitApp from 'react-native-exit-app';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from './styles';
 
 export default function Student() {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const usuarios = firestore().collection('usuarios');
-  const [user, setUser] = useState([]);
   const [nome, setNome] = useState();
   const [foto, setFoto] = useState();
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     function setFirstName(u) {
@@ -32,7 +33,6 @@ export default function Student() {
         .doc(id)
         .get()
         .then((x) => {
-          setUser(x);
           setFirstName(x._data.nome);
           setPhoto(x._data.fotoUrl);
         })
@@ -52,10 +52,30 @@ export default function Student() {
         {` ${nome}`}
       </Text>
       <Text style={styles.header}>O que você deseja fazer?</Text>
-      <Button title="Efetuar Presença" />
+      <Button title="Marcar Presença" />
       <Button title="Lista de Aulas" />
       <Button title="Minha Frequência" />
-      <Button title="Sair" onPress={() => RNExitApp.exitApp()} />
+      <Button title="Sair" onPress={() => setShowAlert(true)} />
+      {/* Alert para sair do App */}
+      <AwesomeAlert
+        show={showAlert}
+        showProgress={false}
+        title="Sair do Aplicativo"
+        message="Você deseja sair do aplicativo?"
+        closeOnTouchOutside
+        closeOnHardwareBackPress={false}
+        showCancelButton
+        showConfirmButton
+        cancelText="Não"
+        confirmText="Sim"
+        confirmButtonColor="#DD6B55"
+        onCancelPressed={() => {
+          setShowAlert(false);
+        }}
+        onConfirmPressed={() => {
+          RNExitApp.exitApp();
+        }}
+      />
     </View>
   );
 }
