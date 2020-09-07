@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import { Text, View, Image, Button } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import RNExitApp from 'react-native-exit-app';
@@ -9,7 +9,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from './styles';
 
 export default function Student() {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const usuarios = firestore().collection('usuarios');
   const [nome, setNome] = useState();
   const [foto, setFoto] = useState();
@@ -53,7 +53,10 @@ export default function Student() {
       </Text>
       <Text style={styles.header}>O que você deseja fazer?</Text>
       <Button title="Marcar Presença" />
-      <Button title="Lista de Aulas" />
+      <Button
+        title="Lista de Aulas"
+        onPress={() => navigation.navigate('ClassList')}
+      />
       <Button title="Minha Frequência" />
       <Button title="Sair" onPress={() => setShowAlert(true)} />
       {/* Alert para sair do App */}
