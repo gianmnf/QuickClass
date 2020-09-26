@@ -7,7 +7,7 @@ import RNExitApp from 'react-native-exit-app';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from './styles';
 
-export default function Student() {
+export default function Teacher() {
   const navigation = useNavigation();
   const usuarios = firestore().collection('usuarios');
   const [nome, setNome] = useState();
@@ -26,15 +26,11 @@ export default function Student() {
       setFoto(photo);
     }
 
-   /*  async function setClass(t) {
-      await AsyncStorage.setItem('@turma', t);
-    } */
-
     async function getUser() {
       const id = await AsyncStorage.getItem('@user');
       usuarios
         .doc('tipo')
-        .collection('alunos')
+        .collection('professores')
         .doc(id)
         .get()
         .then((x) => {
@@ -51,18 +47,21 @@ export default function Student() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Página do Aluno</Text>
+      <Text style={styles.titulo}>Página do Professor</Text>
       <Text style={styles.welcome}>
         <Image style={styles.image} source={{ uri: foto }} />
         {` ${nome}`}
       </Text>
       <Text style={styles.header}>O que você deseja fazer?</Text>
-      <Button title="Marcar Presença" />
       <Button
-        title="Lista de Aulas"
-        onPress={() => navigation.navigate('ClassList')}
+        title="Criar Aula / Efetuar Chamada"
+        onPress={() => navigation.navigate('NewClass')}
       />
-      <Button title="Minha Frequência" />
+      <Button title="Lista de Aulas" />
+      <Button
+        title="Minhas Turmas"
+        onPress={() => navigation.navigate('MyClasses')}
+      />
       <Button title="Sair" onPress={() => setShowAlert(true)} />
       {/* Alert para sair do App */}
       <AwesomeAlert

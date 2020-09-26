@@ -12,7 +12,7 @@ export default function ClassList() {
   const db = firestore();
   const [aulas, setAulas] = useState();
   useEffect(() => {
-    async function getAulas() {
+   /*  async function getAulas() {
       const t = await AsyncStorage.getItem('@turma');
       db.collection('turmas')
         .doc(t)
@@ -30,13 +30,13 @@ export default function ClassList() {
           setAulas(classes);
         });
     }
-    getAulas();
+    getAulas(); */
   }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Lista de Aulas</Text>
-      <FlatList
+      {/* <FlatList
         data={aulas}
         renderItem={({ item }) => (
           <View
@@ -52,7 +52,7 @@ export default function ClassList() {
             <Text>Professor: {item.professor}</Text>
           </View>
         )}
-      />
+      /> */}
     </View>
   );
 }
