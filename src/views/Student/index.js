@@ -6,6 +6,7 @@ import firestore from '@react-native-firebase/firestore';
 import RNExitApp from 'react-native-exit-app';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from './styles';
+import * as sf from '../../functions/student';
 
 export default function Student() {
   const navigation = useNavigation();
@@ -26,10 +27,6 @@ export default function Student() {
       setFoto(photo);
     }
 
-   /*  async function setClass(t) {
-      await AsyncStorage.setItem('@turma', t);
-    } */
-
     async function getUser() {
       const id = await AsyncStorage.getItem('@user');
       usuarios
@@ -39,6 +36,7 @@ export default function Student() {
         .get()
         .then((x) => {
           setFirstName(x.data().nome);
+          sf.setTurma(x.data().email);
           setPhoto(x.data().fotoUrl);
         })
         .catch((error) => {
