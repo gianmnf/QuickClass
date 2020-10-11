@@ -1,30 +1,34 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
+import { format } from 'date-fns';
 import styles from './styles';
 
-export default function MyClasses() {
-  const turmas = firestore().collection('turmas');
+export default function ClassListTeacher() {
   const usuarios = firestore().collection('usuarios');
-  const [listaTurmas, setListaTurmas] = useState();
+  const aulas = firestore().collection('aulas');
+  const [listaAulas, setListaAulas] = useState({});
 
-  async function getTurmas(email) {
-    turmas
-      .where('listaProfessores', 'array-contains', email)
+  async function getAulas(email) {
+    await aulas
+      .where('professorEmail', '==', email)
       .get()
       .then((response) => {
-        const resultTurmas = [];
+        const resultAulas = [];
 
         response.forEach((documentSnapshot) => {
-          resultTurmas.push({
+          resultAulas.push({
             ...documentSnapshot.data(),
             key: documentSnapshot.id,
           });
         });
-        setListaTurmas(resultTurmas);
+
+        setListaAulas(resultAulas);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -37,7 +41,7 @@ export default function MyClasses() {
       .get()
       .then((x) => {
         AsyncStorage.setItem('@emailProfessor', x.data().email);
-        getTurmas(email);
+        getAulas(email);
       })
       .catch((error) => {
         console.log(error);
@@ -49,7 +53,7 @@ export default function MyClasses() {
       const id = await AsyncStorage.getItem('@user');
       const email = await AsyncStorage.getItem('@emailProfessor');
       if (email !== null) {
-        getTurmas(email);
+        getAulas(email);
       } else {
         getProfessorEmail(id);
       }
@@ -59,13 +63,13 @@ export default function MyClasses() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Minhas Turmas</Text>
+      <Text style={styles.titulo}>Lista de Aulas</Text>
       <FlatList
-        data={listaTurmas}
+        data={listaAulas}
         renderItem={({ item }) => (
           <View
             style={{
-              height: 50,
+              height: 80,
               flex: 1,
               alignItems: 'center',
               justifyContent: 'center',
@@ -73,7 +77,15 @@ export default function MyClasses() {
               marginTop: 10,
             }}
           >
-            <Text>{item.nome}</Text>
+            <Text>Disciplina: {item.disciplinaAula}</Text>
+            <Text>Turma: {item.turmaNome} </Text>
+            <Text>
+              Horário de Início:
+              {format(item.inicio.toDate(), ' d/M/yyyy - H:mm')}
+            </Text>
+            <Text>
+              Horário de Fim:{format(item.fim.toDate(), ' d/M/yyyy - H:mm')}
+            </Text>
           </View>
         )}
       />

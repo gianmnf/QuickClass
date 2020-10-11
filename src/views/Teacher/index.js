@@ -54,10 +54,13 @@ export default function Teacher() {
       </Text>
       <Text style={styles.header}>O que você deseja fazer?</Text>
       <Button
-        title="Criar Aula / Efetuar Chamada"
+        title="Criar Aula"
         onPress={() => navigation.navigate('NewClass')}
       />
-      <Button title="Lista de Aulas" />
+      <Button
+        title="Lista de Aulas"
+        onPress={() => navigation.navigate('ClassListTeacher')}
+      />
       <Button
         title="Minhas Turmas"
         onPress={() => navigation.navigate('MyClasses')}

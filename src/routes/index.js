@@ -8,6 +8,7 @@ import ClassList from '../views/Student/classList';
 import Teacher from '../views/Teacher/index';
 import NewClass from '../views/Teacher/newClass';
 import MyClasses from '../views/Teacher/myClassses';
+import ClassListTeacher from '../views/Teacher/classListTeacher';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,10 @@ function MyClassesScreen() {
   return <MyClasses />;
 }
 
+function ClassListTeacherScreen() {
+  return <ClassListTeacher />;
+}
+
 function Routes() {
   return (
     <NavigationContainer>
@@ -45,6 +50,10 @@ function Routes() {
         <Stack.Screen name="Teacher" component={TeacherScreen} />
         <Stack.Screen name="NewClass" component={NewClassScreen} />
         <Stack.Screen name="MyClasses" component={MyClassesScreen} />
+        <Stack.Screen
+          name="ClassListTeacher"
+          component={ClassListTeacherScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
