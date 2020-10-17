@@ -7,6 +7,7 @@ import RNExitApp from 'react-native-exit-app';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { Picker } from '@react-native-community/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Geolocation from 'react-native-geolocation-service';
 import styles from './styles';
 
 export default function NewClass() {
@@ -24,6 +25,8 @@ export default function NewClass() {
   const [showAlert, setShowAlert] = useState(false);
   const [showInicio, setShowInicio] = useState(false);
   const [showFim, setShowFim] = useState(false);
+  const [lat, setLat] = useState('');
+  const [lon, setLon] = useState('');
 
   const onChangeInicio = (event, selectedInicio) => {
     const currentInicio = selectedInicio || horaInicio;
@@ -47,6 +50,8 @@ export default function NewClass() {
         inicio: horaInicio,
         fim: horaFim,
         turmaNome: turma,
+        latitude: lat,
+        longitude: lon,
       })
       .then(() => {
         ToastAndroid.show('Aula cadastrada com sucesso!', ToastAndroid.SHORT);
@@ -99,7 +104,6 @@ export default function NewClass() {
       .get()
       .then((response) => {
         const resultTurmas = [];
-
         response.forEach((documentSnapshot) => {
           resultTurmas.push({
             ...documentSnapshot.data(),
@@ -121,6 +125,19 @@ export default function NewClass() {
         getProfessor(id);
       }
     }
+    async function getLocation() {
+      Geolocation.getCurrentPosition(
+        (position) => {
+          setLat(position.coords.latitude);
+          setLon(position.coords.longitude);
+        },
+        (error) => {
+          console.log(error.code, error.message);
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+      );
+    }
+    getLocation();
     getProfessorDados();
   }, []);
 

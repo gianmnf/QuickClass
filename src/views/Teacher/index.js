@@ -36,6 +36,7 @@ export default function Teacher() {
         .then((x) => {
           setFirstName(x.data().nome);
           setPhoto(x.data().fotoUrl);
+          AsyncStorage.setItem('@emailProfessor', x.data().email);
         })
         .catch((error) => {
           console.log(error);

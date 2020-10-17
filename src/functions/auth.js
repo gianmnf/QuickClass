@@ -4,6 +4,7 @@ import {
 } from '@react-native-community/google-signin';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-community/async-storage';
+import { PermissionsAndroid } from 'react-native';
 
 export async function configureGoogleLogin() {
   GoogleSignin.configure({
@@ -147,4 +148,28 @@ export async function auth() {
   }
   await loginGoogle();
   return true;
+}
+
+export async function permissaoLocalizacao() {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+      {
+        title: 'Permissão de Localização',
+        message:
+          'Para o correto funcionamento deste aplicativo ' +
+          'é necessário habilitar o uso da sua Localização.',
+        buttonNegative: 'Cancelar',
+        buttonPositive: 'OK',
+      }
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log('Uso permitido.');
+    } else {
+      console.log('Falha.');
+    }
+  } catch (err) {
+    console.warn(err);
+  }
 }

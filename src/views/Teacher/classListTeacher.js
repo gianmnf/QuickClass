@@ -1,15 +1,43 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, Button } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import { format } from 'date-fns';
+import Dialog, { DialogTitle, DialogContent } from 'react-native-popup-dialog';
+import { ScrollView } from 'react-native-gesture-handler';
+import Modal from 'react-native-modal';
 import styles from './styles';
 
 export default function ClassListTeacher() {
   const usuarios = firestore().collection('usuarios');
   const aulas = firestore().collection('aulas');
   const [listaAulas, setListaAulas] = useState({});
+  const [isModalVisible, setIsVisible] = useState(false);
+  const [listaAlunos, setListaAlunos] = useState({});
+
+  async function getAlunos(idAula) {
+    await aulas
+      .doc(idAula)
+      .collection('alunosPresentes')
+      .get()
+      .then((response) => {
+        const resultAlunos = [];
+
+        response.forEach((documentSnapshot) => {
+          resultAlunos.push({
+            ...documentSnapshot.data(),
+            key: documentSnapshot.id,
+          });
+        });
+
+        setListaAlunos(resultAlunos);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setIsVisible(true);
+  }
 
   async function getAulas(email) {
     await aulas
@@ -69,7 +97,7 @@ export default function ClassListTeacher() {
         renderItem={({ item }) => (
           <View
             style={{
-              height: 80,
+              height: 120,
               flex: 1,
               alignItems: 'center',
               justifyContent: 'center',
@@ -86,9 +114,29 @@ export default function ClassListTeacher() {
             <Text>
               Horário de Fim:{format(item.fim.toDate(), ' d/M/yyyy - H:mm')}
             </Text>
+            <Button
+              title="Visualizar alunos presentes"
+              onPress={() => getAlunos(item.key)}
+            />
           </View>
         )}
       />
+      <Modal
+        isVisible={isModalVisible}
+        backdropColor="orange"
+        backdropOpacity={1}
+      >
+        <View style={{ flex: 1 }}>
+          <Text style={styles.titulo}>Lista de Alunos Presentes</Text>
+          <FlatList
+            data={listaAlunos}
+            renderItem={({ item }) => (
+              <Text style={{ color: 'white' }}>{item.nome}</Text>
+            )}
+          />
+          <Button title="Fechar" onPress={() => setIsVisible(false)} />
+        </View>
+      </Modal>
     </View>
   );
 }

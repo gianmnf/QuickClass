@@ -22,6 +22,7 @@ export default function Login() {
         navigation.navigate('Teacher');
       }
     }
+    authFunctions.permissaoLocalizacao();
     authFunctions.configureGoogleLogin();
     checkLogin();
   }, []);
