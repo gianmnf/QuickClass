@@ -91,7 +91,7 @@ export default function ClassListTeacher() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Lista de Aulas</Text>
+      <Text style={styles.titulo}>Visualizar Frequência</Text>
       <FlatList
         data={listaAulas}
         renderItem={({ item }) => (

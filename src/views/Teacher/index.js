@@ -59,7 +59,7 @@ export default function Teacher() {
         onPress={() => navigation.navigate('NewClass')}
       />
       <Button
-        title="Lista de Aulas"
+        title="Visualizar Frequência"
         onPress={() => navigation.navigate('ClassListTeacher')}
       />
       <Button
