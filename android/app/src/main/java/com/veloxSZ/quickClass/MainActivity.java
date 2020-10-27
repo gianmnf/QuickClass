@@ -1,4 +1,4 @@
-package com.veloxSZ.quickClass;
+package com.veloxsz.quickclass;
 
 import com.facebook.react.ReactActivity;
 

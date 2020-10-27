@@ -17,6 +17,9 @@ export async function setTurma(email) {
         });
       });
 
-      AsyncStorage.setItem('@turma', resultTurma[0].key);
+      AsyncStorage.setItem('@turma', resultTurma[0].nome);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 }

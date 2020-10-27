@@ -56,6 +56,9 @@ export default function NewClass() {
       .then(() => {
         ToastAndroid.show('Aula cadastrada com sucesso!', ToastAndroid.SHORT);
         navigation.navigate('Teacher');
+      })
+      .catch((err) => {
+        ToastAndroid.show(err, ToastAndroid.SHORT);
       });
   }
 

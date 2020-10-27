@@ -6,16 +6,17 @@ import firestore from '@react-native-firebase/firestore';
 import { format } from 'date-fns';
 import styles from './styles';
 
-export default function ClassList() {
+export default function FrequencyList() {
   const db = firestore();
   const [listaAulas, setListaAulas] = useState();
   useEffect(() => {
     const aulas = db.collection('aulas');
     async function getAulas() {
       const nomeTurma = await AsyncStorage.getItem('@turma');
-      console.log(nomeTurma);
+      const email = await AsyncStorage.getItem('@email');
+      aulas.where('turmaNome', '==', nomeTurma).get();
       aulas
-        .where('turmaNome', '==', nomeTurma)
+        .where('emailAluno', '==', email)
         .get()
         .then((response) => {
           const resultAulas = [];
@@ -27,7 +28,7 @@ export default function ClassList() {
             });
           });
 
-          setListaAulas(resultAulas);
+          console.log(resultAulas);
         })
         .catch((error) => {
           console.log(error);
@@ -38,7 +39,7 @@ export default function ClassList() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Lista de Aulas</Text>
+      <Text style={styles.titulo}>Minha Freqência</Text>
       <FlatList
         data={listaAulas}
         renderItem={({ item }) => (

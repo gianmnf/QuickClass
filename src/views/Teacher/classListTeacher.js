@@ -4,8 +4,6 @@ import { Text, View, FlatList, Button } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import { format } from 'date-fns';
-import Dialog, { DialogTitle, DialogContent } from 'react-native-popup-dialog';
-import { ScrollView } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import styles from './styles';
 

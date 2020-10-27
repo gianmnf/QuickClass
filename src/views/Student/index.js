@@ -27,6 +27,11 @@ export default function Student() {
       setFoto(photo);
     }
 
+    async function setDados(dados) {
+      await AsyncStorage.setItem('@nome', dados.nome);
+      await AsyncStorage.setItem('@email', dados.email);
+    }
+
     async function getUser() {
       const id = await AsyncStorage.getItem('@user');
       usuarios
@@ -38,6 +43,7 @@ export default function Student() {
           setFirstName(x.data().nome);
           sf.setTurma(x.data().email);
           setPhoto(x.data().fotoUrl);
+          setDados(x.data());
         })
         .catch((error) => {
           console.log(error);
@@ -55,12 +61,18 @@ export default function Student() {
         {` ${nome}`}
       </Text>
       <Text style={styles.header}>O que você deseja fazer?</Text>
-      <Button title="Marcar Presença" />
+      <Button
+        title="Marcar Presença"
+        onPress={() => navigation.navigate('Frequency')}
+      />
       <Button
         title="Lista de Aulas"
         onPress={() => navigation.navigate('ClassList')}
       />
-      <Button title="Minha Frequência" />
+      <Button
+        title="Minha Frequência"
+        onPress={() => navigation.navigate('FrequencyList')}
+      />
       <Button title="Sair" onPress={() => setShowAlert(true)} />
       {/* Alert para sair do App */}
       <AwesomeAlert

@@ -2,9 +2,13 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
+// Aluno - Student
 import Login from '../views/Login/index';
 import Student from '../views/Student/index';
 import ClassList from '../views/Student/classList';
+import Frequency from '../views/Student/frequency';
+import FrequencyList from '../views/Student/frequencyList';
+// Professor - Teacher
 import Teacher from '../views/Teacher/index';
 import NewClass from '../views/Teacher/newClass';
 import MyClasses from '../views/Teacher/myClassses';
@@ -40,6 +44,14 @@ function ClassListTeacherScreen() {
   return <ClassListTeacher />;
 }
 
+function FrequencyScreen() {
+  return <Frequency />;
+}
+
+function FrequencyListScreen() {
+  return <FrequencyList />;
+}
+
 function Routes() {
   return (
     <NavigationContainer>
@@ -47,6 +59,8 @@ function Routes() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Student" component={StudentScreen} />
         <Stack.Screen name="ClassList" component={ClassListScreen} />
+        <Stack.Screen name="Frequency" component={FrequencyScreen} />
+        <Stack.Screen name="FrequencyList" component={FrequencyListScreen} />
         <Stack.Screen name="Teacher" component={TeacherScreen} />
         <Stack.Screen name="NewClass" component={NewClassScreen} />
         <Stack.Screen name="MyClasses" component={MyClassesScreen} />

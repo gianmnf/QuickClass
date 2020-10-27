@@ -1,4 +1,4 @@
-package com.veloxSZ.quickClass;
+package com.veloxsz.quickclass;
 
 import android.app.Application;
 import android.content.Context;
