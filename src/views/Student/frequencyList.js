@@ -8,40 +8,39 @@ import styles from './styles';
 
 export default function FrequencyList() {
   const db = firestore();
-  const [listaAulas, setListaAulas] = useState();
-  useEffect(() => {
-    const aulas = db.collection('aulas');
-    async function getAulas() {
-      const nomeTurma = await AsyncStorage.getItem('@turma');
-      const email = await AsyncStorage.getItem('@email');
-      aulas.where('turmaNome', '==', nomeTurma).get();
-      aulas
-        .where('emailAluno', '==', email)
-        .get()
-        .then((response) => {
-          const resultAulas = [];
+  const aulas = db.collection('aulas');
+  const [listaPresenca, setListaPresenca] = useState();
+  const [email, setEmail] = useState('');
 
-          response.forEach((documentSnapshot) => {
-            resultAulas.push({
-              ...documentSnapshot.data(),
-              key: documentSnapshot.id,
+  useEffect(() => {
+    async function populatePresenca() {
+      setEmail(await AsyncStorage.getItem('@email'));
+      aulas
+        .where('emailAlunos', 'array-contains', email)
+        .onSnapshot((documentSnapshot) => {
+          const resultPresenca = [];
+          documentSnapshot.forEach((snap) => {
+            resultPresenca.push({
+              ...snap.data(),
+              key: snap.id,
+              dataPresenca: snap
+                .data()
+                .alunosPresentes.filter((x) => x.emailAluno === email)[0]
+                .dataPresenca,
             });
           });
-
-          console.log(resultAulas);
-        })
-        .catch((error) => {
-          console.log(error);
+          setListaPresenca(resultPresenca);
         });
     }
-    getAulas();
-  }, []);
+
+    populatePresenca();
+  }, [listaPresenca !== undefined]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Minha Freqência</Text>
+      <Text style={styles.titulo}>Minha Frequência</Text>
       <FlatList
-        data={listaAulas}
+        data={listaPresenca}
         renderItem={({ item }) => (
           <View
             style={{
@@ -54,15 +53,11 @@ export default function FrequencyList() {
             }}
           >
             <Text>Disciplina: {item.disciplinaAula}</Text>
-            <Text>
-              Horário de Início:{' '}
-              {format(item.inicio.toDate(), ' d/M/yyyy - H:mm')}
-            </Text>
-            <Text>
-              Horário de Término:{' '}
-              {format(item.fim.toDate(), ' d/M/yyyy - H:mm')}
-            </Text>
             <Text>Professor: {item.professor}</Text>
+            <Text>
+              Data/Hora Presença:{' '}
+              {format(item.dataPresenca.toDate(), ' d/M/yyyy - H:mm')}
+            </Text>
           </View>
         )}
       />

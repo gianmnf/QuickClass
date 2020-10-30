@@ -12,24 +12,14 @@ export default function ClassListTeacher() {
   const aulas = firestore().collection('aulas');
   const [listaAulas, setListaAulas] = useState({});
   const [isModalVisible, setIsVisible] = useState(false);
-  const [listaAlunos, setListaAlunos] = useState({});
+  const [listaAlunos, setListaAlunos] = useState();
 
   async function getAlunos(idAula) {
     await aulas
       .doc(idAula)
-      .collection('alunosPresentes')
       .get()
       .then((response) => {
-        const resultAlunos = [];
-
-        response.forEach((documentSnapshot) => {
-          resultAlunos.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-          });
-        });
-
-        setListaAlunos(resultAlunos);
+        setListaAlunos(response.data().alunosPresentes);
       })
       .catch((error) => {
         console.log(error);
@@ -129,8 +119,11 @@ export default function ClassListTeacher() {
           <FlatList
             data={listaAlunos}
             renderItem={({ item }) => (
-              <Text style={{ color: 'white' }}>{item.nome}</Text>
+              <Text style={{ color: 'white' }} key={item.key}>
+                {item.nome}
+              </Text>
             )}
+            keyExtractor={(item) => item.key}
           />
           <Button title="Fechar" onPress={() => setIsVisible(false)} />
         </View>

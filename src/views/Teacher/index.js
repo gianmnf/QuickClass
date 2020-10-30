@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, Button } from 'react-native';
+import { Text, View, Image, TouchableOpacity, BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
-import RNExitApp from 'react-native-exit-app';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from './styles';
 
@@ -14,16 +13,15 @@ export default function Teacher() {
   const [foto, setFoto] = useState();
   const [showAlert, setShowAlert] = useState(false);
 
+  function handleExit() {
+    setShowAlert(true);
+  }
+
   useEffect(() => {
     function setFirstName(u) {
       const fullName = u;
       const firstName = fullName.split(' ')[0];
       setNome(firstName);
-    }
-
-    function setPhoto(p) {
-      const photo = p.replace('96', '64');
-      setFoto(photo);
     }
 
     async function getUser() {
@@ -35,7 +33,7 @@ export default function Teacher() {
         .get()
         .then((x) => {
           setFirstName(x.data().nome);
-          setPhoto(x.data().fotoUrl);
+          setFoto(x.data().fotoUrl);
           AsyncStorage.setItem('@emailProfessor', x.data().email);
         })
         .catch((error) => {
@@ -43,30 +41,42 @@ export default function Teacher() {
         });
     }
 
+    BackHandler.addEventListener('hardwareBackPress', handleExit);
+
     getUser();
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.containerIndex}>
       <Text style={styles.titulo}>Página do Professor</Text>
-      <Text style={styles.welcome}>
-        <Image style={styles.image} source={{ uri: foto }} />
-        {` ${nome}`}
+      <Image style={styles.image} source={{ uri: foto }} />
+      <Text style={styles.header}>
+        Bem-vindo {nome}, o que você deseja fazer?
       </Text>
-      <Text style={styles.header}>O que você deseja fazer?</Text>
-      <Button
-        title="Criar Aula"
+      <TouchableOpacity
         onPress={() => navigation.navigate('NewClass')}
-      />
-      <Button
-        title="Visualizar Frequência"
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Criar Aula</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => navigation.navigate('ClassListTeacher')}
-      />
-      <Button
-        title="Minhas Turmas"
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Visualizar Frequência</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => navigation.navigate('MyClasses')}
-      />
-      <Button title="Sair" onPress={() => setShowAlert(true)} />
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Minhas Turmas</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => setShowAlert(true)}
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Sair</Text>
+      </TouchableOpacity>
       {/* Alert para sair do App */}
       <AwesomeAlert
         show={showAlert}
@@ -84,7 +94,7 @@ export default function Teacher() {
           setShowAlert(false);
         }}
         onConfirmPressed={() => {
-          RNExitApp.exitApp();
+          BackHandler.exitApp();
         }}
       />
     </View>

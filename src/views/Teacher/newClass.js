@@ -128,6 +128,10 @@ export default function NewClass() {
         getProfessor(id);
       }
     }
+    getProfessorDados();
+  }, []);
+
+  useEffect(() => {
     async function getLocation() {
       Geolocation.getCurrentPosition(
         (position) => {
@@ -141,8 +145,7 @@ export default function NewClass() {
       );
     }
     getLocation();
-    getProfessorDados();
-  }, []);
+  }, [lat, lon]);
 
   return (
     <View style={styles.container}>
