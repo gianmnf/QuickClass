@@ -21,10 +21,7 @@ export async function auth() {
   }
 
   async function saveTipo(tipo) {
-    /* if (tipo === 'aluno') {
-    await AsyncStorage.setItem('@turma', turmaAluno);
-  } */
-    await AsyncStorage.setItem('@tipo', tipo);
+    AsyncStorage.setItem('@tipo', tipo);
   }
 
   async function saveProfessor(info) {
@@ -40,9 +37,6 @@ export async function auth() {
       })
       .then(() => {
         saveTipo('professor');
-        return {
-          navigation: 'Teacher',
-        };
       })
       .catch((err) => {
         console.log(err);

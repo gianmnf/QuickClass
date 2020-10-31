@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList, Button } from 'react-native';
+import { Text, View, FlatList, Button, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import { format } from 'date-fns';
@@ -119,7 +119,7 @@ export default function ClassListTeacher() {
           <FlatList
             data={listaAlunos}
             renderItem={({ item }) => (
-              <Text style={{ color: 'white' }} key={item.key}>
+              <Text style={{ color: 'white' }} key={item.nome}>
                 {item.nome}
               </Text>
             )}

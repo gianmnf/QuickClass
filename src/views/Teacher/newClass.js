@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, ToastAndroid } from 'react-native';
+import { Text, View, TouchableOpacity, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
@@ -148,7 +148,7 @@ export default function NewClass() {
   }, [lat, lon]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.containerIndex}>
       <Text style={styles.titulo}>Nova Aula</Text>
       <Text>Turma</Text>
       <Picker
@@ -168,7 +168,7 @@ export default function NewClass() {
       </Picker>
       <Text>Disciplina</Text>
       <Picker
-        style={{ height: 50, width: 150 }}
+        style={{ height: 50, width: 250 }}
         onValueChange={(itemValue) => setDisciplina(itemValue)}
         selectedValue={disciplina}
       >
@@ -182,8 +182,15 @@ export default function NewClass() {
           );
         })}
       </Picker>
-      <Button onPress={() => setShowInicio(true)} title="Horário Inicio" />
-      <Button onPress={() => setShowFim(true)} title="Horário Fim" />
+      <TouchableOpacity
+        onPress={() => setShowInicio(true)}
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Horário Início</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => setShowFim(true)} style={styles.button}>
+        <Text style={styles.textButton}>Horário Fim</Text>
+      </TouchableOpacity>
       {showInicio && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -204,7 +211,9 @@ export default function NewClass() {
           onChange={onChangeFim}
         />
       )}
-      <Button onPress={() => criarAula()} title="Enviar" />
+      <TouchableOpacity onPress={() => criarAula()} style={styles.button}>
+        <Text style={styles.textButton}>Criar</Text>
+      </TouchableOpacity>
       {/* Alert para sair do App */}
       <AwesomeAlert
         show={showAlert}

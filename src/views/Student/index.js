@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, Button } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
@@ -54,26 +54,36 @@ export default function Student() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.containerIndex}>
       <Text style={styles.titulo}>Página do Aluno</Text>
-      <Text style={styles.welcome}>
-        <Image style={styles.image} source={{ uri: foto }} />
-        {` ${nome}`}
+      <Image style={styles.image} source={{ uri: foto }} />
+      <Text style={styles.header}>
+        Bem-vindo {nome}, o que você deseja fazer?
       </Text>
-      <Text style={styles.header}>O que você deseja fazer?</Text>
-      <Button
-        title="Marcar Presença"
+      <TouchableOpacity
         onPress={() => navigation.navigate('Frequency')}
-      />
-      <Button
-        title="Lista de Aulas"
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Marcar Presença</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => navigation.navigate('ClassList')}
-      />
-      <Button
-        title="Minha Frequência"
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Lista de Aulas</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => navigation.navigate('FrequencyList')}
-      />
-      <Button title="Sair" onPress={() => setShowAlert(true)} />
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Minha Frequência</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => setShowAlert(true)}
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Sair</Text>
+      </TouchableOpacity>
       {/* Alert para sair do App */}
       <AwesomeAlert
         show={showAlert}

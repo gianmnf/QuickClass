@@ -19,6 +19,7 @@ export default function Frequency() {
   const [email, setEmail] = useState('');
   const [lat, setLat] = useState('');
   const [lon, setLon] = useState('');
+  const [page, setPage] = useState('');
 
   async function getLocation() {
     Geolocation.getCurrentPosition(

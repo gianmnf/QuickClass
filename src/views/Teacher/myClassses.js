@@ -74,7 +74,8 @@ export default function MyClasses() {
               marginTop: 10,
             }}
           >
-            <Text>{item.nome}</Text>
+            <Text> Turma: {item.nome}</Text>
+            <Text> Curso: {item.curso}</Text>
           </View>
         )}
       />

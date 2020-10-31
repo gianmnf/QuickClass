@@ -13,10 +13,6 @@ export default function Teacher() {
   const [foto, setFoto] = useState();
   const [showAlert, setShowAlert] = useState(false);
 
-  function handleExit() {
-    setShowAlert(true);
-  }
-
   useEffect(() => {
     function setFirstName(u) {
       const fullName = u;
@@ -40,8 +36,6 @@ export default function Teacher() {
           console.log(error);
         });
     }
-
-    BackHandler.addEventListener('hardwareBackPress', handleExit);
 
     getUser();
   }, []);
