@@ -9,6 +9,16 @@ const styles = StyleSheet.create({
     width: 216,
     height: 64,
   },
+  button: {
+    backgroundColor: '#2295f3',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 2,
+    width: 200,
+  },
+  textButton: {
+    textAlign: 'center',
+  },
 });
 
 export default styles;

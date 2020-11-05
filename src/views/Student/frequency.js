@@ -19,7 +19,6 @@ export default function Frequency() {
   const [email, setEmail] = useState('');
   const [lat, setLat] = useState('');
   const [lon, setLon] = useState('');
-  const [page, setPage] = useState('');
 
   async function getLocation() {
     Geolocation.getCurrentPosition(
@@ -100,7 +99,10 @@ export default function Frequency() {
           setListaAulas(resultAulas);
         });
     }
+    getAulas();
+  }, []);
 
+  useEffect(() => {
     async function populatePresenca() {
       setEmail(await AsyncStorage.getItem('@email'));
       aulas
@@ -116,8 +118,6 @@ export default function Frequency() {
           setListaPresenca(resultPresenca);
         });
     }
-
-    getAulas();
     populatePresenca();
   }, [listaPresenca !== undefined]);
 
