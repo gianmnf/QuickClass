@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1071424142938",
+    "firebase_url": "https://quickclass-7149f.firebaseio.com",
+    "project_id": "quickclass-7149f",
+    "storage_bucket": "quickclass-7149f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071424142938:android:e9549f85e699d8f580e263",
+        "android_client_info": {
+          "package_name": "com.veloxSZ.quickClass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071424142938-a737da7hdc7dqqc2afqtgtg2mk07u8jg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.veloxSZ.quickClass",
+            "certificate_hash": "bc7d33897fdfc8a275bfed5ba9af615a34b6659f"
+          }
+        },
+        {
+          "client_id": "1071424142938-obk2deb2c8otbcmsdbklhcmdtgc9nvv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsF7xQWWnic7QVb363Tx3L5Posmt_pcOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071424142938-obk2deb2c8otbcmsdbklhcmdtgc9nvv1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
