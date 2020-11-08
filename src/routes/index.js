@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
+import Loading from '../views/Loading/index';
 import Login from '../views/Login/index';
 // Aluno - Student
 import LoginStudent from '../views/Login/student';
@@ -62,10 +63,15 @@ function LoginTeacherScreen() {
   return <LoginTeacher />;
 }
 
+function LoadingScreen() {
+  return <Loading />;
+}
+
 function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="LoginStudent" component={LoginStudentScreen} />
         <Stack.Screen name="LoginTeacher" component={LoginTeacherScreen} />

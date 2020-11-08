@@ -22,7 +22,7 @@ export default function ClassListTeacher() {
         setListaAlunos(response.data().alunosPresentes);
       })
       .catch((error) => {
-        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.LONG);
       });
     setIsVisible(true);
   }
@@ -44,7 +44,7 @@ export default function ClassListTeacher() {
         setListaAulas(resultAulas);
       })
       .catch((error) => {
-        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.LONG);
       });
   }
 
@@ -60,7 +60,7 @@ export default function ClassListTeacher() {
         getAulas(email);
       })
       .catch((error) => {
-        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.LONG);
       });
   }
 

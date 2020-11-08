@@ -1,10 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, ToastAndroid } from 'react-native';
 // import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
-import { format } from 'date-fns';
 import styles from './styles';
 
 export default function MyClasses() {
@@ -41,7 +40,7 @@ export default function MyClasses() {
         getTurmas(email);
       })
       .catch((error) => {
-        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.LONG);
       });
   }
 

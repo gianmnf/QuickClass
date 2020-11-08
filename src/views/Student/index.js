@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
@@ -22,11 +28,6 @@ export default function Student() {
       setNome(firstName);
     }
 
-    function setPhoto(p) {
-      const photo = p.replace('96', '64');
-      setFoto(photo);
-    }
-
     async function setDados(dados) {
       await AsyncStorage.setItem('@nome', dados.nome);
       await AsyncStorage.setItem('@email', dados.email);
@@ -42,15 +43,22 @@ export default function Student() {
         .then((x) => {
           setFirstName(x.data().nome);
           sf.setTurma(x.data().email);
-          setPhoto(x.data().fotoUrl);
+          setFoto(x.data().fotoUrl);
           setDados(x.data());
         })
         .catch((error) => {
-          console.log(error);
+          ToastAndroid.show(error, ToastAndroid.LONG);
         });
     }
 
     getUser();
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+      setShowAlert(true);
+    });
   }, []);
 
   return (

@@ -10,9 +10,8 @@ import { ToastAndroid } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import styles from './styles';
 import Background from '../../components/Background';
-import Logo from '../../components/Logo';
-import Header from '../../components/Header';
 import Paragraph from '../../components/Paragraph';
+import LogoApp from '../../components/LogoApp';
 import * as authFunctions from '../../functions/auth';
 
 export default function LoginStudent() {
@@ -115,8 +114,7 @@ export default function LoginStudent() {
   return (
     <>
       <Background>
-        <Header>Quick Class</Header>
-        <Logo />
+        <LogoApp />
         <Paragraph>
           Para efetuar o login como aluno, pressione o botão abaixo:
         </Paragraph>

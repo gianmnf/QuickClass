@@ -10,6 +10,8 @@ target 'QuickClass' do
 
   pod 'RNGoogleSignin', :path => '../node_modules/@react-native-community/google-signin'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'QuickClassTests' do
     inherit! :complete
     # Pods for testing

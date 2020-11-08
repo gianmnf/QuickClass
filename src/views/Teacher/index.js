@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, TouchableOpacity, BackHandler } from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  BackHandler,
+  ToastAndroid,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
@@ -33,11 +40,18 @@ export default function Teacher() {
           AsyncStorage.setItem('@emailProfessor', x.data().email);
         })
         .catch((error) => {
-          console.log(error);
+          ToastAndroid.show(error, ToastAndroid.LONG);
         });
     }
 
     getUser();
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+      setShowAlert(true);
+    });
   }, []);
 
   return (

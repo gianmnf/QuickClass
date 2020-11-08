@@ -28,7 +28,10 @@ export default function Frequency() {
         setGetLoc(false);
       },
       (error) => {
-        console.log(error.code, error.message);
+        ToastAndroid.show(
+          `Código do Erro:${error.code} - Erro:${error.message}`,
+          ToastAndroid.LONG
+        );
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
@@ -45,7 +48,6 @@ export default function Frequency() {
       longitude: lon,
     };
     const dist = getPreciseDistance(latLonTeacher, latLonStudent);
-    console.log(dist);
     const nomeAluno = await AsyncStorage.getItem('@nome');
     const objAluno = {
       nome: nomeAluno,

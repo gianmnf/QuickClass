@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import { format } from 'date-fns';
@@ -13,7 +13,6 @@ export default function ClassList() {
     const aulas = db.collection('aulas');
     async function getAulas() {
       const nomeTurma = await AsyncStorage.getItem('@turma');
-      console.log(nomeTurma);
       aulas
         .where('turmaNome', '==', nomeTurma)
         .get()
@@ -30,7 +29,7 @@ export default function ClassList() {
           setListaAulas(resultAulas);
         })
         .catch((error) => {
-          console.log(error);
+          ToastAndroid.show(error, ToastAndroid.LONG);
         });
     }
     getAulas();

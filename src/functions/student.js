@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
+import { ToastAndroid } from 'react-native';
 
 export async function setTurma(email) {
   const turmas = firestore().collection('turmas');
@@ -20,6 +21,6 @@ export async function setTurma(email) {
       AsyncStorage.setItem('@turma', resultTurma[0].nome);
     })
     .catch((error) => {
-      console.log(error);
+      ToastAndroid.show(error, ToastAndroid.LONG);
     });
 }

@@ -42,24 +42,31 @@ export default function NewClass() {
 
   async function criarAula() {
     const email = await AsyncStorage.getItem('@emailProfessor');
-    aulas
-      .add({
-        professor: nomeProfessor,
-        professorEmail: email,
-        disciplinaAula: disciplina,
-        inicio: horaInicio,
-        fim: horaFim,
-        turmaNome: turma,
-        latitude: lat,
-        longitude: lon,
-      })
-      .then(() => {
-        ToastAndroid.show('Aula cadastrada com sucesso!', ToastAndroid.SHORT);
-        navigation.navigate('Teacher');
-      })
-      .catch((err) => {
-        ToastAndroid.show(err, ToastAndroid.SHORT);
-      });
+    if (lat !== 0 && lon !== 0) {
+      aulas
+        .add({
+          professor: nomeProfessor,
+          professorEmail: email,
+          disciplinaAula: disciplina,
+          inicio: horaInicio,
+          fim: horaFim,
+          turmaNome: turma,
+          latitude: lat,
+          longitude: lon,
+        })
+        .then(() => {
+          ToastAndroid.show('Aula cadastrada com sucesso!', ToastAndroid.SHORT);
+          navigation.navigate('Teacher');
+        })
+        .catch((err) => {
+          ToastAndroid.show(err, ToastAndroid.SHORT);
+        });
+    } else {
+      ToastAndroid.show(
+        'Ligue sua localização antes de criar uma aula!',
+        ToastAndroid.LONG
+      );
+    }
   }
 
   function getDisciplinas(id) {
@@ -82,7 +89,7 @@ export default function NewClass() {
         setListaDisciplinas(resultList);
       })
       .catch((error) => {
-        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.LONG);
       });
   }
 
@@ -97,7 +104,7 @@ export default function NewClass() {
         getDisciplinas(id);
       })
       .catch((error) => {
-        console.log(error);
+        ToastAndroid.show(error, ToastAndroid.LONG);
       });
   }
 
@@ -139,7 +146,10 @@ export default function NewClass() {
           setLon(position.coords.longitude);
         },
         (error) => {
-          console.log(error.code, error.message);
+          ToastAndroid.show(
+            `Código do Erro:${error.code} - Erro:${error.message}`,
+            ToastAndroid.LONG
+          );
         },
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
       );
