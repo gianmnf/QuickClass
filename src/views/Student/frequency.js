@@ -81,6 +81,11 @@ export default function Frequency() {
         'Não foi possível calcular a distância. Verifique se a sua localização está ativada e tente novamente.',
         ToastAndroid.LONG
       );
+    } else if (lat === 0 && lon === 0) {
+      ToastAndroid.show(
+        'Ative sua localização antes de marcar presença!',
+        ToastAndroid.LONG
+      );
     }
   }
 

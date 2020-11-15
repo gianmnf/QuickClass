@@ -120,7 +120,7 @@ export default function ClassListTeacher() {
             data={listaAlunos}
             renderItem={({ item }) => (
               <Text style={{ color: 'white' }} key={item.nome}>
-                {item.nome}
+                {item.nome} - Data/Hora Presença: {format(item.dataPresenca.toDate(), ' d/M/yyyy - H:mm')}
               </Text>
             )}
             keyExtractor={(item) => item.key}
