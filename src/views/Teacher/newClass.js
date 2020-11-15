@@ -63,7 +63,7 @@ export default function NewClass() {
         });
     } else {
       ToastAndroid.show(
-        'Ligue sua localização antes de criar uma aula!',
+        'Ative sua localização antes de criar uma aula!',
         ToastAndroid.LONG
       );
     }
